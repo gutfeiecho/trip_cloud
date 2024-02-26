@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: trip-gateway
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
+      config:
+        file-extension: yaml # 配置文件格式
+        namespace: 1337cd38-06cf-46ef-9df3-2b5c3858ed62
+  # 配置文件的环境
+  profiles:
+    active: dev
+
+# nacos config 远程找配置文件的规则
+# 1. 应用名称.后缀 -> trip-gateway.yaml
+# 2. 应用名称-dev.后缀 -> trip-gateway-dev.yaml
+# 3. 应用程序名称 -> trip-gateway

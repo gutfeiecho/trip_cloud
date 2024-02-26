@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
+      config:
+        file-extension: yaml # 配置文件格式
+        namespace: 1337cd38-06cf-46ef-9df3-2b5c3858ed62
+  # 配置文件的环境
+  profiles:
+    active: dev

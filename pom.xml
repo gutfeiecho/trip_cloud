@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>trip-cloud</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 父项目，只负责管理pom文件的依赖，不负责代码编译等功能 -->
+    <packaging>pom</packaging>
+    <modules>
+        <module>trip-gateway</module>
+        <module>trip-common</module>
+        <module>trip-modules-api</module>
+        <module>trip-modules</module>
+    </modules>
+
+    <description>父项目，用于管理整个项目的子模块以及相关依赖</description>
+
+    <!-- 父工程 -->
+    <!-- 父项目坐标，如果项目中没有规定某个元素的值，那么父项目中的对应值即为项目的默认值
+       包括groupID, artifactID和version等等 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.2</version>
+    </parent>
+
+    <!-- 依赖版本锁定 -->
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
+    </properties>
+
+    <!-- 对父项目进行同一的依赖版本管理，这些依赖并不会被maven下载，只有在子项目中依赖到的时候进行下载 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- self-modules -->
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>trip-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Spring-Cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-client</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- others -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
